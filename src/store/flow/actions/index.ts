@@ -1,8 +1,8 @@
 import { Commit } from "vuex";
 import { FlowState } from "../state";
-import { Section, Component } from "../../typings.d";
+import { Section, Component } from "@/global.d";
 
-import types from "../types/";
+import types from "../mutation-types";
 
 export interface ActionDoubleClick {
   section: Section;

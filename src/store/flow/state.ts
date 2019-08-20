@@ -1,11 +1,11 @@
-import { Component } from "../typings.d";
+import { Section } from "@/global";
 
 export interface FlowState {
-  dataSouce: Component[];
+  dataSource: Section[];
 }
 
 const state: FlowState = {
-  dataSouce: [],
+  dataSource: [],
 };
 
 export default state;

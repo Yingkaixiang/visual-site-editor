@@ -1,7 +1,7 @@
-import { INSERT_TO_BOTTOM } from "../types/";
+import { INSERT_TO_BOTTOM } from "../mutation-types";
 
 import { FlowState } from "../state";
-import { Section, Component } from "../../typings.d";
+import { Section, Component } from "@/global.d";
 
 interface MutationInsertToBottom {
   section: Section;
@@ -11,7 +11,7 @@ interface MutationInsertToBottom {
 export default {
   [INSERT_TO_BOTTOM](state: FlowState, payload: MutationInsertToBottom) {
     const { section } = payload;
-    const index = state.dataSouce.push(section);
+    const index = state.dataSource.push(section);
     console.log(index);
   },
 };

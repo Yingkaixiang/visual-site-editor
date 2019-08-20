@@ -1,14 +1,16 @@
 <template>
   <div>
-    <Button @click="doubleClick">文字组件</Button>
+    <Button @click="handleDoubleClick">文字组件</Button>
   </div>
 </template>
 
 <script lang="ts">
 import { Button } from "element-ui";
 import { Component, Vue } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
-import { doubleClick } from "@/store/flow/dispatches/";
+import { createSection, createComponent } from "@/util/mock";
+import { ActionDoubleClick } from "@/store/flow/actions/";
 
 @Component({
   components: {
@@ -16,9 +18,13 @@ import { doubleClick } from "@/store/flow/dispatches/";
   },
 })
 export default class Left extends Vue {
-  public doubleClick() {
-    console.log(123);
-    doubleClick({ section: { id: "1" }, component: { id: "2" } });
+  @Action("flow/doubleClick") private doubleClick!: (payload: ActionDoubleClick) => void;
+
+  public handleDoubleClick() {
+    const section = createSection("static", "flow", "190px");
+    const component = createComponent("text");
+
+    this.doubleClick({ section, component });
   }
 }
 </script>

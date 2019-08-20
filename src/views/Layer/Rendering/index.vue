@@ -1,10 +1,19 @@
 <template>
-  <div :class="$style.rendering">3333</div>
+  <div :class="$style.rendering">
+    <Flow />
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+import Flow from "./flow.vue";
+
+@Component({
+  components: {
+    Flow,
+  },
+})
 export default class Rendering extends Vue {}
 </script>
 
