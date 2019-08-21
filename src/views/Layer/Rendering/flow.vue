@@ -7,14 +7,14 @@
       :style="section.styles"
     >
       {{ section.id }}
-      <!-- <div
-        v-for="component in section.item"
-        :key="component._id"
-        class="main-rendering-layer-component"
-        :style="getComponentStyle(component.styles)"
+      <div
+        v-for="component in section.components"
+        :key="component.id"
+        :class="$style.component"
+        :style="component.styles"
       >
-        <ComponentX :dataSource="component" />
-      </div> -->
+       <ComponentX :type="component.type" />
+      </div>
     </div>
   </div>
 </template>
@@ -24,13 +24,17 @@ import { Component, Vue } from "vue-property-decorator";
 import { State } from "vuex-class";
 
 import { FlowState } from "@/store/flow/state";
+import ComponentX from "./components.vue";
 
-@Component
+@Component({
+  components: {
+    ComponentX,
+  },
+})
 export default class Flow extends Vue {
   @State("flow") private flow!: FlowState;
 
   get dataSource() {
-    console.dir(this.flow);
     return this.flow.dataSource;
   }
 }
@@ -40,6 +44,9 @@ export default class Flow extends Vue {
 .container {
   overflow: hidden;
   position: relative;
-  background: red;
+}
+
+.component {
+  position: absolute;
 }
 </style>

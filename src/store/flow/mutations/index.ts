@@ -10,8 +10,8 @@ interface MutationInsertToBottom {
 
 export default {
   [INSERT_TO_BOTTOM](state: FlowState, payload: MutationInsertToBottom) {
-    const { section } = payload;
+    const { section, component } = payload;
+    section.components.push(component);
     const index = state.dataSource.push(section);
-    console.log(index);
   },
 };
