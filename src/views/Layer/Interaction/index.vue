@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.rendering">
+  <div :class="$style.interaction">
     <Flow />
   </div>
 </template>
@@ -14,15 +14,15 @@ import Flow from "./Flow.vue";
     Flow,
   },
 })
-export default class Rendering extends Vue {}
+export default class Interaction extends Vue {}
 </script>
 
 <style lang="scss" module>
-.rendering {
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
-  min-height: 585px;
-  overflow: hidden;
+.interaction {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 </style>

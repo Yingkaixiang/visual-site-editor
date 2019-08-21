@@ -2,8 +2,10 @@
   <div :class="$style.main">
     <div :class="$style['top-blank']"></div>
     <div :class="$style.content">
+      <Background />
       <div :class="$style.page">
         <Rendering />
+        <Interaction />
       </div>
     </div>
     <div :class="$style['bottom-blank']"></div>
@@ -13,11 +15,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+import Background from "./Background.vue";
 import Rendering from "@/views/Layer/Rendering/index.vue";
+import Interaction from "@/views/Layer/Interaction/index.vue";
 
 @Component({
   components: {
+    Background,
     Rendering,
+    Interaction,
   },
 })
 export default class Main extends Vue {}

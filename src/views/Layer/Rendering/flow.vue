@@ -20,24 +20,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { State } from "vuex-class";
+import { mixins } from "vue-class-component";
+import { Component } from "vue-property-decorator";
 
-import { FlowState } from "@/store/flow/state";
-import ComponentX from "./components.vue";
+import ComponentX from "./ComponentX.vue";
+
+import FlowMixin from "@/mixins/flow";
 
 @Component({
   components: {
     ComponentX,
   },
 })
-export default class Flow extends Vue {
-  @State("flow") private flow!: FlowState;
-
-  get dataSource() {
-    return this.flow.dataSource;
-  }
-}
+export default class Flow extends mixins(FlowMixin) {}
 </script>
 
 <style lang="scss" module>

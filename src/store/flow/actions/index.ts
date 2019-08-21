@@ -9,8 +9,26 @@ export interface ActionDoubleClick {
   component: Component;
 }
 
+export interface ActionSelectComponent {
+  section: Section;
+  index: number;
+}
+
 export default {
   doubleClick(ctx: { commit: Commit, state: FlowState }, payload: ActionDoubleClick) {
     ctx.commit(types.INSERT_TO_BOTTOM, payload);
+  },
+
+  selectComponent(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectComponent) {
+    ctx.commit(types.CHANGE_INDEX, payload.index);
+    ctx.commit(types.CHANGE_SECTION, payload.section);
+  },
+
+  moveOnSection(ctx: { commit: Commit, state: FlowState }, payload: number) {
+    ctx.commit(types.CHANGE_BACKGROUND_HIGHLIGHT_INDEX, payload);
+  },
+
+  moveOutSection(ctx: { commit: Commit, state: FlowState }) {
+    ctx.commit(types.CHANGE_BACKGROUND_HIGHLIGHT_INDEX, -1);
   },
 };
