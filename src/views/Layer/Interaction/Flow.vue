@@ -7,7 +7,7 @@
         [$style.container]: true,
         [$style['container-active']]: sectionIndex === index,
       }"
-      :style="section.styles"
+      :style="convertInlineStyle(section.styles)"
       @click="handleClick(section, index)"
       @mouseenter="handleMouseEnter(index)"
       @mouseleave="handleMouseLeave"
@@ -23,16 +23,20 @@ import { Action } from "vuex-class";
 import FlowMixin from "@/mixins/flow";
 
 import { Section } from "@/global.d";
-import { ActionSelectComponent } from "@/store/flow/actions/index";
+import { ActionSelectSection } from "@/store/flow/actions/";
 
-type SelectComponent = (payload: ActionSelectComponent) => void;
+import { convertInlineStyle } from "@/util/unit";
+
+type SelectSection = (payload: ActionSelectSection) => void;
 
 @Component
 export default class Flow extends mixins(FlowMixin) {
-  @Action("flow/selectComponent") private selectComponent!: SelectComponent;
+  @Action("flow/selectSection") private selectSection!: SelectSection;
+
+  private convertInlineStyle = convertInlineStyle;
 
   private handleClick(section: Section, index: number) {
-    this.selectComponent({ section, index });
+    this.selectSection({ section, index });
   }
 
   private handleMouseEnter(index: number) {

@@ -9,7 +9,7 @@ export interface ActionDoubleClick {
   component: Component;
 }
 
-export interface ActionSelectComponent {
+export interface ActionSelectSection {
   section: Section;
   index: number;
 }
@@ -17,11 +17,13 @@ export interface ActionSelectComponent {
 export default {
   doubleClick(ctx: { commit: Commit, state: FlowState }, payload: ActionDoubleClick) {
     ctx.commit(types.INSERT_TO_BOTTOM, payload);
+    ctx.commit(types.CHANGE_OPERATOR_TOP);
   },
 
-  selectComponent(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectComponent) {
+  selectSection(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectSection) {
     ctx.commit(types.CHANGE_INDEX, payload.index);
     ctx.commit(types.CHANGE_SECTION, payload.section);
+    ctx.commit(types.CHANGE_OPERATOR_TOP);
   },
 
   moveOnSection(ctx: { commit: Commit, state: FlowState }, payload: number) {

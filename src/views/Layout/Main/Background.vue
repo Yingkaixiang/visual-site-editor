@@ -22,6 +22,8 @@ import { Component } from "vue-property-decorator";
 
 import FlowMixin from "@/mixins/flow";
 
+import { addInlineStyleUnit } from "@/util/unit";
+
 interface Styles {
   height: number;
 }
@@ -29,7 +31,7 @@ interface Styles {
 @Component
 export default class Background extends mixins(FlowMixin) {
   private getStyle({ height }: Styles) {
-    return { height };
+    return { height: addInlineStyleUnit(height, "px") };
   }
 
   private handleMouseEnter(index: number) {

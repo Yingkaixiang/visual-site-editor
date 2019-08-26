@@ -5,7 +5,7 @@ import { Section, PositionType, SectionType, ComponentType } from "@/global.d";
 export function createSection(
   positionType: PositionType,
   type: SectionType,
-  height: string,
+  height: number,
 ): Section {
   return {
     id: shortid.generate(),

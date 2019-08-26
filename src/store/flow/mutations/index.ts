@@ -3,12 +3,16 @@ import types from "../mutation-types";
 import { FlowState } from "../state";
 import { Section, Component } from "@/global.d";
 
+import operatorMutations from "./operator";
+
 interface MutationInsertToBottom {
   section: Section;
   component: Component;
 }
 
 export default {
+  ...operatorMutations,
+
   [types.INSERT_TO_BOTTOM](state: FlowState, payload: MutationInsertToBottom) {
     const { section, component } = payload;
     section.components.push(component);
