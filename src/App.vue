@@ -3,7 +3,7 @@
     <div :class="$style.left">
       <Left />
     </div>
-    <div :class="$style.main">
+    <div :class="$style.main" id="main">
       <Main />
     </div>
     <div :class="$style.right">

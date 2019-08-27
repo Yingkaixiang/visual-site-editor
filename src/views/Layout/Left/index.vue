@@ -26,6 +26,11 @@ export default class Left extends Vue {
     const component = createComponent("text");
 
     this.doubleClick({ section, component });
+
+    const ele = document.querySelector("#main") as Element;
+    if (ele.scrollHeight > ele.clientHeight) {
+      ele.scrollTop = ele.scrollHeight - ele.clientHeight;
+    }
   }
 }
 </script>
