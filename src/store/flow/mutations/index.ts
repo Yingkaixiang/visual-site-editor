@@ -28,6 +28,10 @@ export default {
     state.section = payload;
   },
 
+  [types.CHANGE_SECTION_HEIGHT](state: FlowState, payload: number) {
+    state.section!.styles.height = payload;
+  },
+
   [types.CHANGE_BACKGROUND_HIGHLIGHT_INDEX](state: FlowState, payload: number) {
     state.backgroundHighlightIndex = payload;
   },

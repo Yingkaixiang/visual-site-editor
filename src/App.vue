@@ -1,5 +1,9 @@
 <template>
-  <div :class="$style.editor">
+  <div
+    :class="$style.editor"
+    @mousemove="onHandlerMouseMove"
+    @mouseup="onHandlerMouseUp"
+  >
     <div :class="$style.left">
       <Left />
     </div>
@@ -13,10 +17,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import { Component } from "vue-property-decorator";
 
 import Left from "@/views/Layout/Left/index.vue";
 import Main from "@/views/Layout/Main/index.vue";
+
+import HandlerMixin from "@/mixins/handler";
 
 @Component({
   components: {
@@ -24,7 +31,7 @@ import Main from "@/views/Layout/Main/index.vue";
     Main,
   },
 })
-export default class App extends Vue {}
+export default class App extends mixins(HandlerMixin) {}
 </script>
 
 <style lang="scss" module>
