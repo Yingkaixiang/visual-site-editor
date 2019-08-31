@@ -1,49 +1,65 @@
 <template>
   <div :class="$style.operator" :style="operatorTop" v-if="isShow">
     <div :class="$style.bar">
-      <div
-        :class="{
-          [$style.btn]: true,
-          [$style['btn-top']]: true,
-        }"
-        @click="onAddBtnClick('top')"
-      >
-        <i class="el-icon-plus" />
-      </div>
+      <Tooltip content="上插空白区域" placement="right">
+        <div
+          :class="{
+            [$style.btn]: true,
+            [$style['btn-top']]: true,
+          }"
+          @click="onAddBtnClick('top')"
+        >
+          <i class="el-icon-plus" />
+        </div>
+      </Tooltip>
 
-      <div
+      <Tooltip
         v-if="sectionIndex !== 0"
-        :class="$style.btn"
-        @click="onMoveBtnClick('forward')"
+        content="上移"
+        placement="right"
       >
-        <i class="el-icon-top" />
-      </div>
+        <div
+          :class="$style.btn"
+          @click="onMoveBtnClick('forward')"
+        >
+          <i class="el-icon-top" />
+        </div>
+      </Tooltip>
 
-      <div
+      <Tooltip
         v-if="sectionIndex !== length - 1"
-        :class="$style.btn"
-        @click="onMoveBtnClick('backward')"
+        content="下移"
+        placement="right"
       >
-        <i class="el-icon-bottom" />
-      </div>
+        <div
+          :class="$style.btn"
+          @click="onMoveBtnClick('backward')"
+        >
+          <i class="el-icon-bottom" />
+        </div>
+      </Tooltip>
 
       <div :class="$style.btn">
         <i class="el-icon-setting" />
       </div>
 
-      <div :class="$style.btn">
-        <i class="el-icon-delete" />
-      </div>
+      <Tooltip content="删除" placement="right">
+        <div :class="$style.btn" @click="onRemoveBtnClick">
+          <i class="el-icon-delete" />
+        </div>
+      </Tooltip>
 
-      <div
-        :class="{
-          [$style.btn]: true,
-          [$style['btn-bottom']]: true,
-        }"
-        @click="onAddBtnClick('bottom')"
-      >
-        <i class="el-icon-plus" />
-      </div>
+      <Tooltip content="下插空白区域" placement="right">
+        <div
+          :class="{
+            [$style.btn]: true,
+            [$style['btn-bottom']]: true,
+          }"
+          @click="onAddBtnClick('bottom')"
+        >
+          <i class="el-icon-plus" />
+        </div>
+      </Tooltip>
     </div>
 
     <div :class="$style.handler" :style="operatorHeight">
@@ -92,6 +108,7 @@ export default class Operator extends mixins(HandlerMixin) {
   @Action("flow/addNewSectionAtBackCurrent") private addNewSectionAtBackCurrent!: (section: Section) => void;
   @Action("flow/moveSectionForward") private moveSectionForward!: () => void;
   @Action("flow/moveSectionBackward") private moveSectionBackward!: () => void;
+  @Action("flow/removeSection") private removeSection!: () => void;
 
   get height() {
     return this.flow.operatorStyle!.height;
@@ -140,6 +157,10 @@ export default class Operator extends mixins(HandlerMixin) {
     } else if (type === "backward") {
       this.moveSectionBackward();
     }
+  }
+
+  private onRemoveBtnClick() {
+    this.removeSection();
   }
 }
 </script>

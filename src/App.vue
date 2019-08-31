@@ -11,7 +11,7 @@
       <Main />
     </div>
     <div :class="$style.right">
-      <!-- <Right /> -->
+      <Right />
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ import { Component } from "vue-property-decorator";
 
 import Left from "@/views/Layout/Left/index.vue";
 import Main from "@/views/Layout/Main/index.vue";
+import Right from "@/views/Layout/Right/index.vue";
 
 import HandlerMixin from "@/mixins/handler";
 
@@ -29,6 +30,7 @@ import HandlerMixin from "@/mixins/handler";
   components: {
     Left,
     Main,
+    Right,
   },
 })
 export default class App extends mixins(HandlerMixin) {}

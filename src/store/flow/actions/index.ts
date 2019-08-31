@@ -63,4 +63,9 @@ export default {
     ctx.commit(types.MOVE_SECTION_BACKWARD);
     ctx.commit(types.CHANGE_OPERATOR_STYLE);
   },
+
+  removeSection(ctx: { commit: Commit, state: FlowState }) {
+    ctx.commit(types.REMOVE_SECTION);
+    ctx.commit(types.CHANGE_OPERATOR_STYLE);
+  },
 };

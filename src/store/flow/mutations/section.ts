@@ -68,4 +68,25 @@ export default {
     state.index = index + 1;
     state.section = deletedSection[0];
   },
+
+  // 删除区域
+  [types.REMOVE_SECTION](state: FlowState) {
+    const { index, dataSource } = state;
+    const length = dataSource.length;
+
+    state.dataSource.splice(index, 1);
+
+    // 文档流只有一个区域时
+    if (length === 1) {
+      state.operatorStyle = null;
+      state.section = null;
+      state.index = -1;
+    // 删除元素是文档流的最后一个元素
+    } else if (index === length - 1) {
+      state.section = dataSource[index - 1];
+      state.index = index - 1;
+    } else {
+      state.section = state.dataSource[index];
+    }
+  },
 };
