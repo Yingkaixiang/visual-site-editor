@@ -39,4 +39,28 @@ export default {
     ctx.commit(types.CHANGE_SECTION_HEIGHT, payload);
     ctx.commit(types.CHANGE_OPERATOR_HEIGHT, payload);
   },
+
+  doubleClickHandler(ctx: { commit: Commit, state: FlowState }) {
+    ctx.commit(types.AUTO_ADJUST_SECTION_HEIGHT);
+  },
+
+  addNewSectionInFrontCurrent(ctx: { commit: Commit, state: FlowState }, payload: Section) {
+    ctx.commit(types.ADD_NEW_SECTION_IN_FRONT_CURRENT, payload);
+    ctx.commit(types.CHANGE_OPERATOR_STYLE);
+  },
+
+  addNewSectionAtBackCurrent(ctx: { commit: Commit, state: FlowState }, payload: Section) {
+    ctx.commit(types.ADD_NEW_SECTION_AT_BACK_CURRENT, payload);
+    ctx.commit(types.CHANGE_OPERATOR_STYLE);
+  },
+
+  moveSectionForward(ctx: { commit: Commit, state: FlowState }) {
+    ctx.commit(types.MOVE_SECTION_FORWARD);
+    ctx.commit(types.CHANGE_OPERATOR_STYLE);
+  },
+
+  moveSectionBackward(ctx: { commit: Commit, state: FlowState }) {
+    ctx.commit(types.MOVE_SECTION_BACKWARD);
+    ctx.commit(types.CHANGE_OPERATOR_STYLE);
+  },
 };

@@ -1,4 +1,4 @@
-import { createSection } from "@/util/mock";
+import { createSection } from "@/util/data";
 import { addInlineStyleUnit } from "@/util/unit";
 
 describe("工具方法测试", () => {

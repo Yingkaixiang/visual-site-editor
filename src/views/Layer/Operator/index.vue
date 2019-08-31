@@ -6,15 +6,24 @@
           [$style.btn]: true,
           [$style['btn-top']]: true,
         }"
+        @click="onAddBtnClick('top')"
       >
         <i class="el-icon-plus" />
       </div>
 
-      <div :class="$style.btn">
+      <div
+        v-if="sectionIndex !== 0"
+        :class="$style.btn"
+        @click="onMoveBtnClick('forward')"
+      >
         <i class="el-icon-top" />
       </div>
 
-      <div :class="$style.btn">
+      <div
+        v-if="sectionIndex !== length - 1"
+        :class="$style.btn"
+        @click="onMoveBtnClick('backward')"
+      >
         <i class="el-icon-bottom" />
       </div>
 
@@ -31,6 +40,7 @@
           [$style.btn]: true,
           [$style['btn-bottom']]: true,
         }"
+        @click="onAddBtnClick('bottom')"
       >
         <i class="el-icon-plus" />
       </div>
@@ -43,6 +53,7 @@
           [$style['handler-top']]: true,
         }"
         @mousedown="onHandlerMouseDown($event, 'top', height)"
+        @dblclick="onHandlerDoubleClick"
       ></div>
       <div
         :class="{
@@ -50,6 +61,7 @@
           [$style['handler-bottom']]: true,
         }"
         @mousedown="onHandlerMouseDown($event, 'bottom', height)"
+        @dblclick="onHandlerDoubleClick"
       ></div>
     </div>
   </div>
@@ -58,16 +70,28 @@
 <script lang="ts">
 import { mixins } from "vue-class-component";
 import { Component } from "vue-property-decorator";
-import { State } from "vuex-class";
+import { State, Action } from "vuex-class";
+import { Tooltip } from "element-ui";
 
 import { FlowState } from "@/store/flow/state";
 
 import { convertInlineStyle } from "@/util/unit";
+import { createSection } from "@/util/data";
 import HandlerMixin from "@/mixins/handler";
+import { Section } from "@/global.d";
 
-@Component
+@Component({
+  components: {
+    Tooltip,
+  },
+})
 export default class Operator extends mixins(HandlerMixin) {
   @State("flow") public flow!: FlowState;
+  @Action("flow/doubleClickHandler") private doubleClickHandler!: () => void;
+  @Action("flow/addNewSectionInFrontCurrent") private addNewSectionInFrontCurrent!: (section: Section) => void;
+  @Action("flow/addNewSectionAtBackCurrent") private addNewSectionAtBackCurrent!: (section: Section) => void;
+  @Action("flow/moveSectionForward") private moveSectionForward!: () => void;
+  @Action("flow/moveSectionBackward") private moveSectionBackward!: () => void;
 
   get height() {
     return this.flow.operatorStyle!.height;
@@ -87,6 +111,35 @@ export default class Operator extends mixins(HandlerMixin) {
 
   get isShow() {
     return Boolean(this.flow.operatorStyle);
+  }
+
+  get sectionIndex() {
+    return this.flow.index;
+  }
+
+  get length() {
+    return this.flow.dataSource.length;
+  }
+
+  public onHandlerDoubleClick() {
+    this.doubleClickHandler();
+  }
+
+  private onAddBtnClick(type: "top" | "bottom") {
+    const section = createSection("static", "flow", 190);
+    if (type === "top") {
+      this.addNewSectionInFrontCurrent(section);
+    } else if (type === "bottom") {
+      this.addNewSectionAtBackCurrent(section);
+    }
+  }
+
+  private onMoveBtnClick(type: "forward" | "backward") {
+    if (type === "forward") {
+      this.moveSectionForward();
+    } else if (type === "backward") {
+      this.moveSectionBackward();
+    }
   }
 }
 </script>

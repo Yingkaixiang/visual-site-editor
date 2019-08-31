@@ -10,7 +10,7 @@ import { mixins } from "vue-class-component";
 import { Component } from "vue-property-decorator";
 import { Action } from "vuex-class";
 
-import { createSection, createComponent } from "@/util/mock";
+import { createSection, createComponent } from "@/util/data";
 import { addInlineStyleUnit } from "@/util/unit";
 import { ActionDoubleClick } from "@/store/flow/actions/";
 import ScrollMixin from "@/mixins/scroll";
