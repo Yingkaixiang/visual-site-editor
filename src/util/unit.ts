@@ -20,6 +20,8 @@ export function convertInlineStyle(styles: any) {
     Object.keys(styles).forEach((key: string) => {
       if (CSS_PROPERTY_CAN_BE_COVERTED_WITH_UNIT.includes(key)) {
         current[key] = addInlineStyleUnit(styles[key], "px");
+      } else {
+        current[key] = styles[key];
       }
     });
   }

@@ -1,9 +1,9 @@
-import types from "../mutation-types";
+import { Types } from "../mutation-types";
 
 import { FlowState } from "../state";
 
 export default {
-  [types.CHANGE_OPERATOR_STYLE](state: FlowState) {
+  [Types.CHANGE_OPERATOR_STYLE](state: FlowState) {
     const { index, dataSource, section } = state;
 
     if (dataSource.length > 0) {
@@ -18,7 +18,7 @@ export default {
     }
   },
 
-  [types.CHANGE_OPERATOR_HEIGHT](state: FlowState, height: number) {
+  [Types.CHANGE_OPERATOR_HEIGHT](state: FlowState, height: number) {
     state.operatorStyle!.height = height;
   },
 };

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Button } from "element-ui";
+import { Button, Col } from "element-ui";
 import { mixins } from "vue-class-component";
 import { Component } from "vue-property-decorator";
 import { Action } from "vuex-class";

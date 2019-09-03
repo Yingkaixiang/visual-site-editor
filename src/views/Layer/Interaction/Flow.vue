@@ -7,7 +7,7 @@
         [$style.container]: true,
         [$style['container-active']]: sectionIndex === index,
       }"
-      :style="convertInlineStyle(section.styles)"
+      :style="getSectionStyle(section)"
       @click="handleClick(section, index)"
       @mouseenter="handleMouseEnter(index)"
       @mouseleave="handleMouseLeave"
@@ -45,6 +45,11 @@ export default class Flow extends mixins(FlowMixin) {
 
   private handleMouseLeave() {
     this.moveOutSection();
+  }
+
+  private getSectionStyle(section: Section) {
+    const styles = convertInlineStyle(section.styles);
+    return { height: styles.height };
   }
 }
 </script>
