@@ -11,7 +11,23 @@
       @click="handleClick(section, index)"
       @mouseenter="handleMouseEnter(index)"
       @mouseleave="handleMouseLeave"
-    ></div>
+    >
+      <VueDragResize
+        :isActive="true"
+        :preventActiveBehavior="true"
+        :isDraggable="true"
+        :isResizable="true"
+        :aspectRatio="false"
+        :w="100"
+        :h="100"
+        :minw="1"
+        :minh="1"
+        :x="0"
+        :y="0"
+        :z="999"
+        :sticks="['tl']"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,6 +35,7 @@
 import { mixins } from "vue-class-component";
 import { Component } from "vue-property-decorator";
 import { Action } from "vuex-class";
+import VueDragResize from "vue-drag-resize";
 
 import FlowMixin from "@/mixins/flow";
 
@@ -29,7 +46,11 @@ import { convertInlineStyle } from "@/util/unit";
 
 type SelectSection = (payload: ActionSelectSection) => void;
 
-@Component
+@Component({
+  components: {
+    VueDragResize,
+  },
+})
 export default class Flow extends mixins(FlowMixin) {
   @Action("flow/selectSection") private selectSection!: SelectSection;
 

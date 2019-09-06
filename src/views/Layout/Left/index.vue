@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Button @click="handleDoubleClick">文字组件</Button>
+    <Button
+      v-for="component in defaultComponentList"
+      :key="component.id"
+      @click="handleDoubleClick(component)">{{ component.type }}</Button>
   </div>
 </template>
 
@@ -12,8 +15,12 @@ import { Action } from "vuex-class";
 
 import { createSection, createComponent } from "@/util/data";
 import { addInlineStyleUnit } from "@/util/unit";
-import { ActionDoubleClick } from "@/store/flow/actions/";
 import ScrollMixin from "@/mixins/scroll";
+import { defaultComponentList } from "@/components/";
+
+import { ActionDoubleClick } from "@/store/flow/actions/";
+import { IComponent } from "@/global.d";
+import { IDefaultComponentList } from "@/components/";
 
 @Component({
   components: {
@@ -23,9 +30,10 @@ import ScrollMixin from "@/mixins/scroll";
 export default class Left extends mixins(ScrollMixin) {
   @Action("flow/doubleClick") private doubleClick!: (payload: ActionDoubleClick) => void;
 
-  public handleDoubleClick() {
+  private defaultComponentList: IDefaultComponentList = defaultComponentList;
+
+  public handleDoubleClick(component: IComponent) {
     const section = createSection("static", "flow", 190);
-    const component = createComponent("text");
 
     this.doubleClick({ section, component });
 

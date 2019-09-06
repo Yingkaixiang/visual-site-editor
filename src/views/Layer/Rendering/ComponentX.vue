@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-import RichText from "@/components/RichText.vue";
+import RichText from "@/components/RichText/RichText.vue";
 
 @Component({
   components: {

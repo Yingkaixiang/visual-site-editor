@@ -1,11 +1,13 @@
+import CSS from "csstype";
+
 export type PositionType = "static" | "relative" | "absolute" | "fixed";
 export type PositionLocation = "top" | "bottom" | "anywhere";
 export type SectionType = "flow" | "flow-temp" | "affix" | "suspension" | "global";
-export type ComponentType = "text";
+export type ComponentType = "text" | "picture";
 
 interface Section {
   audit?: object;
-  components: Component[];
+  components: IComponent[];
   positionType: PositionType;
   positionLocation?: PositionLocation;
   styles: any;
@@ -14,12 +16,14 @@ interface Section {
   id: string;
 }
 
-interface Component {
-  audit?: object;
-  item?: object[];
-  sticks?: string[];
-  aspectRatio?: boolean;
-  styles?: any;
+interface IComponent {
+  audit: object;
+  item: object[];
+  sticks: string[];
+  aspectRatio: boolean;
+  styles: CSS.Properties;
   type: ComponentType;
   id: string;
+  isResizable: boolean;
+  isDraggable: boolean;
 }

@@ -2,13 +2,13 @@ import { Commit } from "vuex";
 
 import CSS from "csstype";
 import { FlowState } from "../state";
-import { Section, Component } from "@/global.d";
+import { Section, IComponent } from "@/global.d";
 
 import { Types } from "../mutation-types";
 
 export interface ActionDoubleClick {
   section: Section;
-  component: Component;
+  component: IComponent;
 }
 
 export interface ActionSelectSection {

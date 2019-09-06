@@ -4,11 +4,11 @@ import { Types } from "../mutation-types";
 
 import CSS from "csstype";
 import { FlowState } from "../state";
-import { Section, Component } from "@/global.d";
+import { Section, IComponent } from "@/global.d";
 
 interface MutationInsertToBottom {
   section: Section;
-  component: Component;
+  component: IComponent;
 }
 
 export default {

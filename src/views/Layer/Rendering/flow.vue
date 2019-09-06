@@ -6,7 +6,6 @@
       :key="section.id"
       :style="convertInlineStyle(section.styles)"
     >
-      {{ section.id }}
       <div
         v-for="component in section.components"
         :key="component.id"
