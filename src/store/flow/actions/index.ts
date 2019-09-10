@@ -21,6 +21,7 @@ export default {
     ctx.commit(Types.INSERT_TO_BOTTOM, payload);
     ctx.commit(Types.CHANGE_SECTION, payload.section);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
+    ctx.commit(Types.CHANGE_COMPONENT, payload.component);
   },
 
   selectSection(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectSection) {

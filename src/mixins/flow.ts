@@ -23,4 +23,8 @@ export default class FlowMixin extends Vue {
   get backgroundHighlightIndex() {
     return this.flow.backgroundHighlightIndex;
   }
+
+  get currentComponent() {
+    return this.flow.component;
+  }
 }

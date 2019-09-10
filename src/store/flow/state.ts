@@ -1,4 +1,4 @@
-import { Section } from "@/global";
+import { Section, IComponent } from "@/global";
 
 export interface FlowState {
   // 渲染用的数据源
@@ -11,6 +11,8 @@ export interface FlowState {
   backgroundHighlightIndex: number;
   // 操作层
   operatorStyle: Operator | null;
+  // 当前激活的组件
+  component: IComponent | null;
 }
 
 export interface Operator {
@@ -26,6 +28,7 @@ const state: FlowState = {
   section: null,
   backgroundHighlightIndex: -1,
   operatorStyle: null,
+  component: null,
 };
 
 export default state;

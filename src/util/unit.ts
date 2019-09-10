@@ -14,6 +14,10 @@ export function addInlineStyleUnit(value: number, unit: InlineStyleUnit) {
   return `${value}${unit}`;
 }
 
+export function removeInlineStyleUnit(value: string) {
+  return value ? parseInt(value, 10) : value;
+}
+
 export function convertInlineStyle(styles: any) {
   const current: any = {};
   if (styles) {
