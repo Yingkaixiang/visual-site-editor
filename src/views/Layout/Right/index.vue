@@ -7,11 +7,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Action } from "vuex-class";
-import CSS from "csstype";
 
 import Section from "./Section/index.vue";
 
 import { FlowState } from "@/store/flow/state";
+import { CSSProperties } from "@/index.d";
 
 @Component({
   components: {
@@ -26,7 +26,7 @@ export default class Right extends Vue {
     return Boolean(this.flow.section);
   }
 
-  private onSectionChange(styles: CSS.Properties) {
+  private onSectionChange(styles: CSSProperties) {
     this.changeSectionStyle();
   }
 }

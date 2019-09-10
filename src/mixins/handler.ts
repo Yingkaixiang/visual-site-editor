@@ -1,6 +1,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action } from "vuex-class";
 
+import { addInlineStyleUnit, removeInlineStyleUnit } from "@/util/unit";
+
 type Direction = "bottom" | "top";
 
 // 初始的区域高度
@@ -16,14 +18,14 @@ let scrollTop: number = 0;
 // 滚动条所在的节点
 let ele: Element | undefined;
 
-type MoveHandler = (height: number) => void;
+type MoveHandler = (height: string) => void;
 
 @Component
 export default class HandlerMixin extends Vue {
   @Action("flow/moveHandler") public moveHandler!: MoveHandler;
 
-  public onHandlerMouseDown(e: MouseEvent, d: Direction, h: number) {
-    defaultSectionHeight = h;
+  public onHandlerMouseDown(e: MouseEvent, d: Direction, h: string) {
+    defaultSectionHeight = removeInlineStyleUnit(h);
     direction = d;
     isDragging = true;
     startY = e.pageY;
@@ -48,7 +50,8 @@ export default class HandlerMixin extends Vue {
         ? defaultSectionHeight - delta
         : defaultSectionHeight + delta;
 
-      this.moveHandler(sectionHeight);
+      const h = addInlineStyleUnit(sectionHeight, "px");
+      this.moveHandler(h);
 
       if (direction === "top" && ele) {
         e.preventDefault();

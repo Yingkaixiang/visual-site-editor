@@ -1,13 +1,10 @@
-import Vue from "vue";
-
 import { Types } from "../mutation-types";
 
-import CSS from "csstype";
 import { FlowState } from "../state";
-import { Section, IComponent } from "@/global.d";
+import { ISection, IComponent, CSSProperties } from "@/index.d";
 
 interface MutationInsertToBottom {
-  section: Section;
+  section: ISection;
   component: IComponent;
 }
 
@@ -23,11 +20,11 @@ export default {
     state.index = payload;
   },
 
-  [Types.CHANGE_SECTION](state: FlowState, payload: Section) {
+  [Types.CHANGE_SECTION](state: FlowState, payload: ISection) {
     state.section = payload;
   },
 
-  [Types.CHANGE_SECTION_HEIGHT](state: FlowState, payload: number) {
+  [Types.CHANGE_SECTION_HEIGHT](state: FlowState, payload: string) {
     state.section!.styles.height = payload;
   },
 
@@ -40,14 +37,14 @@ export default {
   },
 
   // 在当前区域的上方添加一个新区域
-  [Types.ADD_NEW_SECTION_IN_FRONT_CURRENT](state: FlowState, payload: Section) {
+  [Types.ADD_NEW_SECTION_IN_FRONT_CURRENT](state: FlowState, payload: ISection) {
     const { index } = state;
     state.dataSource.splice(index, 0, payload);
     state.section = payload;
   },
 
   // 在当前区域的下方添加一个新区域
-  [Types.ADD_NEW_SECTION_AT_BACK_CURRENT](state: FlowState, payload: Section) {
+  [Types.ADD_NEW_SECTION_AT_BACK_CURRENT](state: FlowState, payload: ISection) {
     const { index } = state;
     state.dataSource.splice(index + 1, 0, payload);
     state.index = index + 1;
@@ -55,7 +52,7 @@ export default {
   },
 
   // 将当前区域向前移动一格
-  [Types.MOVE_SECTION_FORWARD](state: FlowState, payload: Section) {
+  [Types.MOVE_SECTION_FORWARD](state: FlowState, payload: ISection) {
     const { index } = state;
     const deletedSection = state.dataSource.splice(index, 1);
     state.dataSource.splice(index - 1, 0, deletedSection[0]);
@@ -64,7 +61,7 @@ export default {
   },
 
   // 将当前区域向后移动一格
-  [Types.MOVE_SECTION_BACKWARD](state: FlowState, payload: Section) {
+  [Types.MOVE_SECTION_BACKWARD](state: FlowState, payload: ISection) {
     const { index } = state;
     const deletedSection = state.dataSource.splice(index, 1);
     state.dataSource.splice(index + 1, 0, deletedSection[0]);
@@ -94,7 +91,7 @@ export default {
   },
 
   // 修改区域样式
-  [Types.CHANGE_SECTION_STYLE](state: FlowState, styles: CSS.Properties) {
+  [Types.CHANGE_SECTION_STYLE](state: FlowState, styles: CSSProperties) {
     state.section!.styles = styles;
   },
 };

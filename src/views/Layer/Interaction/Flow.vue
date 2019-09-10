@@ -7,7 +7,7 @@
         [$style.container]: true,
         [$style['container-active']]: sectionIndex === index,
       }"
-      :style="getSectionStyle(section)"
+      :style="getSectionStyle(section.styles)"
       @click="handleClick(section, index)"
       @mouseenter="handleMouseEnter(index)"
       @mouseleave="handleMouseLeave"
@@ -55,8 +55,8 @@ import { Action } from "vuex-class";
 import VueDragResize from "vue-drag-resize";
 
 import FlowMixin from "@/mixins/flow";
+import { ISection, IComponent, CSSProperties } from "@/index.d";
 
-import { Section, IComponent } from "@/global.d";
 import { ActionSelectSection } from "@/store/flow/actions/";
 
 import { convertInlineStyle, removeInlineStyleUnit } from "@/util/unit";
@@ -71,7 +71,7 @@ type SelectSection = (payload: ActionSelectSection) => void;
 export default class Flow extends mixins(FlowMixin) {
   @Action("flow/selectSection") private selectSection!: SelectSection;
 
-  private handleClick(section: Section, index: number) {
+  private handleClick(section: ISection, index: number) {
     this.selectSection({ section, index });
   }
 
@@ -83,12 +83,11 @@ export default class Flow extends mixins(FlowMixin) {
     this.moveOutSection();
   }
 
-  private getSectionStyle(section: Section) {
-    const styles = convertInlineStyle(section.styles);
+  private getSectionStyle(styles: CSSProperties) {
     return { height: styles.height };
   }
 
-  private onSubstituteMouseEnter(e: any, component: IComponent) {
+  private onSubstituteMouseEnter(e: VSE.IEvent, component: IComponent) {
     console.log(1);
   }
 
@@ -129,10 +128,6 @@ export default class Flow extends mixins(FlowMixin) {
       border: 2px solid #81b0ff;
     }
   }
-}
-
-.substitute {
-  background: red;
 }
 
 .vdr {

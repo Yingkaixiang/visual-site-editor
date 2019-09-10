@@ -4,7 +4,7 @@
       :class="$style.container"
       v-for="section in dataSource"
       :key="section.id"
-      :style="convertInlineStyle(section.styles)"
+      :style="section.styles"
     >
       <div
         v-for="component in section.components"
@@ -25,16 +25,13 @@ import { Component } from "vue-property-decorator";
 import ComponentX from "./ComponentX.vue";
 
 import FlowMixin from "@/mixins/flow";
-import { convertInlineStyle } from "@/util/unit";
 
 @Component({
   components: {
     ComponentX,
   },
 })
-export default class Flow extends mixins(FlowMixin) {
-  private convertInlineStyle = convertInlineStyle;
-}
+export default class Flow extends mixins(FlowMixin) {}
 </script>
 
 <style lang="scss" module>

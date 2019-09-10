@@ -90,11 +90,10 @@ import { State, Action } from "vuex-class";
 import { Tooltip } from "element-ui";
 
 import { FlowState } from "@/store/flow/state";
+import CSS from "csstype";
 
-import { convertInlineStyle } from "@/util/unit";
 import { createSection } from "@/util/data";
 import HandlerMixin from "@/mixins/handler";
-import { Section } from "@/global.d";
 
 @Component({
   components: {
@@ -104,8 +103,10 @@ import { Section } from "@/global.d";
 export default class Operator extends mixins(HandlerMixin) {
   @State("flow") public flow!: FlowState;
   @Action("flow/doubleClickHandler") private doubleClickHandler!: () => void;
-  @Action("flow/addNewSectionInFrontCurrent") private addNewSectionInFrontCurrent!: (section: Section) => void;
-  @Action("flow/addNewSectionAtBackCurrent") private addNewSectionAtBackCurrent!: (section: Section) => void;
+  @Action("flow/addNewSectionInFrontCurrent") private addNewSectionInFrontCurrent!:
+    (section: VSE.ISection<CSS.Properties>) => void;
+  @Action("flow/addNewSectionAtBackCurrent") private addNewSectionAtBackCurrent!:
+    (section: VSE.ISection<CSS.Properties>) => void;
   @Action("flow/moveSectionForward") private moveSectionForward!: () => void;
   @Action("flow/moveSectionBackward") private moveSectionBackward!: () => void;
   @Action("flow/removeSection") private removeSection!: () => void;
@@ -115,15 +116,13 @@ export default class Operator extends mixins(HandlerMixin) {
   }
 
   get operatorTop() {
-    return convertInlineStyle({
+    return {
       top: this.flow.operatorStyle!.top,
-    });
+    };
   }
 
   get operatorHeight() {
-    return convertInlineStyle({
-      height: this.height,
-    });
+    return { height: this.height };
   }
 
   get isShow() {
@@ -143,7 +142,7 @@ export default class Operator extends mixins(HandlerMixin) {
   }
 
   private onAddBtnClick(type: "top" | "bottom") {
-    const section = createSection("static", "flow", 190);
+    const section = createSection("static", "flow", "190px");
     if (type === "top") {
       this.addNewSectionInFrontCurrent(section);
     } else if (type === "bottom") {

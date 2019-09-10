@@ -7,7 +7,7 @@
         [$style['container-active']]: backgroundHighlightIndex === index,
       }"
       :key="section.id"
-      :style="getStyle(section.styles)"
+      :style="getStyles(section.styles)"
       @mouseenter="onMouseEnter(index)"
       @mouseleave="onMouseLeave"
       @click="onBackgroundClick(section, index)"
@@ -24,23 +24,17 @@ import { Action } from "vuex-class";
 
 import FlowMixin from "@/mixins/flow";
 
-import { addInlineStyleUnit } from "@/util/unit";
-
 import { ActionSelectSection } from "@/store/flow/actions/";
-import { Section } from "@/global.d";
+import { CSSProperties, ISection } from "@/index.d";
 
 type SelectSection = (payload: ActionSelectSection) => void;
-
-interface Styles {
-  height: number;
-}
 
 @Component
 export default class Background extends mixins(FlowMixin) {
   @Action("flow/selectSection") private selectSection!: SelectSection;
 
-  private getStyle({ height }: Styles) {
-    return { height: addInlineStyleUnit(height, "px") };
+  private getStyles(styles: CSSProperties) {
+    return { height: styles.height };
   }
 
   private onMouseEnter(index: number) {
@@ -51,7 +45,7 @@ export default class Background extends mixins(FlowMixin) {
     this.moveOutSection();
   }
 
-  private onBackgroundClick(section: Section, index: number) {
+  private onBackgroundClick(section: ISection, index: number) {
     this.selectSection({ section, index });
   }
 }

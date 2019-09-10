@@ -1,12 +1,14 @@
-import { Section, IComponent } from "@/global";
+import CSS from "csstype";
+
+import { ISection, IComponent } from "@/index.d";
 
 export interface FlowState {
   // 渲染用的数据源
-  dataSource: Section[];
+  dataSource: ISection[];
   // 当前激活的区域索引
   index: number;
   // 当前激活的区域
-  section: Section | null;
+  section: ISection | null;
   // 当前背景高亮索引
   backgroundHighlightIndex: number;
   // 操作层
@@ -17,9 +19,9 @@ export interface FlowState {
 
 export interface Operator {
   // 操作层高度，会随着区域的增高而变高
-  height?: number;
+  height?: string;
   // 操作层离页面容器的高度
-  top: number;
+  top: string;
 }
 
 const state: FlowState = {

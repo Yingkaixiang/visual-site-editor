@@ -1,28 +1,22 @@
 import shortid from "shortid";
 
-import { Section, PositionType, SectionType, ComponentType } from "@/global.d";
+import { ISection } from "@/index.d";
 
 export function createSection(
-  positionType: PositionType,
-  type: SectionType,
-  height: number,
-): Section {
+  positionType: VSE.ISectionPositionType,
+  type: VSE.ISectionType,
+  height: string,
+): ISection {
   return {
-    id: shortid.generate(),
+    audit: {},
     components: [],
+    id: shortid.generate(),
+    positionLocation: "",
     positionType,
     type,
     version: "v1",
     styles: {
       height,
     },
-  };
-}
-
-export function createComponent(type: ComponentType, sticks?: string[]) {
-  return {
-    sticks: sticks || ["tl", "tm", "tr", "mr", "br", "bm", "bl", "ml"],
-    type,
-    id: shortid.generate(),
   };
 }

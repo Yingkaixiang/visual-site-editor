@@ -6,13 +6,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import CSS from "csstype";
+import { Component, Vue } from "vue-property-decorator";
 import { Action, State } from "vuex-class";
 
 import SectionConf from "@/views/Configuration/Section/index.vue";
 
 import { FlowState } from "@/store/flow/state";
+import { CSSProperties } from "@/index.d";
+
+type ChangeSectionStyle = (styles: CSSProperties) => void;
 
 @Component({
   components: {
@@ -21,9 +24,9 @@ import { FlowState } from "@/store/flow/state";
 })
 export default class Section extends Vue {
   @State("flow") private flow!: FlowState;
-  @Action("flow/changeSectionStyle") private changeSectionStyle!: (styles: CSS.Properties) => void;
+  @Action("flow/changeSectionStyle") private changeSectionStyle!: ChangeSectionStyle;
 
-  private onSectionConfChange(styles: CSS.Properties) {
+  private onSectionConfChange(styles: CSSProperties) {
     this.changeSectionStyle(styles);
   }
 

@@ -2,13 +2,15 @@ import { Commit } from "vuex";
 
 import CSS from "csstype";
 import { FlowState } from "../state";
-import { Section, IComponent } from "@/global.d";
 
 import { Types } from "../mutation-types";
 
+type Section = VSE.ISection<CSS.Properties>;
+type Component = VSE.IComponent<CSS.Properties>;
+
 export interface ActionDoubleClick {
   section: Section;
-  component: IComponent;
+  component: Component;
 }
 
 export interface ActionSelectSection {
@@ -38,7 +40,7 @@ export default {
     ctx.commit(Types.CHANGE_BACKGROUND_HIGHLIGHT_INDEX, -1);
   },
 
-  moveHandler(ctx: { commit: Commit, state: FlowState }, payload: number) {
+  moveHandler(ctx: { commit: Commit, state: FlowState }, payload: string) {
     ctx.commit(Types.CHANGE_SECTION_HEIGHT, payload);
     ctx.commit(Types.CHANGE_OPERATOR_HEIGHT, payload);
   },

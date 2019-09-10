@@ -1,9 +1,9 @@
+import CSS from "csstype";
+
 import RichText from "./RichText/default";
 import Picture from "./Picture/default";
 
-import { IComponent } from "@/global.d";
-
-export type IDefaultComponentList = IComponent[];
+export type IDefaultComponentList = Array<VSE.IComponent<CSS.Properties>>;
 
 export const defaultComponentList: IDefaultComponentList = [
   RichText,
