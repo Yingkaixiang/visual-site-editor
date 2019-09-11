@@ -4,6 +4,7 @@ import CSS from "csstype";
 import { FlowState } from "../state";
 
 import { Types } from "../mutation-types";
+import { IComponent } from "@/index.d";
 
 type Section = VSE.ISection<CSS.Properties>;
 type Component = VSE.IComponent<CSS.Properties>;
@@ -76,5 +77,14 @@ export default {
 
   changeSectionStyle(ctx: { commit: Commit, state: FlowState }, styles: CSS.Properties) {
     ctx.commit(Types.CHANGE_SECTION_STYLE, styles);
+  },
+
+  selectComponent(ctx: { commit: Commit, state: FlowState }, component: IComponent) {
+    ctx.commit(Types.CHANGE_COMPONENT, component);
+  },
+
+  moveComponent(ctx: { commit: Commit, state: FlowState }, styles: any) {
+    ctx.commit(Types.CHANGE_COMPONENT_LEFT, styles.left);
+    ctx.commit(Types.CHANGE_COMPONENT_TOP, styles.top);
   },
 };

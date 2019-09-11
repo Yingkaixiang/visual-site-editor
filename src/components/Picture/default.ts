@@ -1,9 +1,6 @@
-import shortid from "shortid";
+import { IComponentDefault } from "@/index.d";
 
-import { IComponent } from "@/index.d";
-
-const Picture: IComponent = {
-  id: shortid.generate(),
+export default {
   audit: {},
   item: [],
   sticks: ["tl", "tr", "bl", "br"],
@@ -18,6 +15,4 @@ const Picture: IComponent = {
   isResizable: true,
   isDraggable: true,
   version: "v1",
-};
-
-export default Picture;
+} as IComponentDefault;

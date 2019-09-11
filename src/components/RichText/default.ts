@@ -1,9 +1,6 @@
-import shortid from "shortid";
+import { IComponentDefault } from "@/index.d";
 
-import { IComponent } from "@/index.d";
-
-const RichText: IComponent = {
-  id: shortid.generate(),
+export default {
   audit: {},
   item: [],
   sticks: ["ml", "mr"],
@@ -18,6 +15,4 @@ const RichText: IComponent = {
   isDraggable: true,
   isResizable: true,
   version: "v1",
-};
-
-export default RichText;
+} as IComponentDefault;

@@ -5,7 +5,6 @@ declare namespace VSE {
   type ISectionPositionLocation = "top" | "bottom" | "anywhere" | "";
   type ISectionType = "flow" | "flow-temp" | "affix" | "suspension" | "global";
   type IVersion = "v1";
-  type IEvent = MouseEvent | TouchEvent;
 
   interface ISection<CSS> {
     audit: IAudit;
@@ -23,7 +22,7 @@ declare namespace VSE {
     // 是否可以等比例缩放
     // 如：图片组件
     aspectRatio: boolean;
-    id: string;
+    readonly id: string;
     isDraggable: boolean;
     isResizable: boolean;
     item: Array<IComponentItem<CSS>>;

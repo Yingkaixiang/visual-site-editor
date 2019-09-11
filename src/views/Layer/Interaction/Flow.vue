@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    @mousemove="onSubstituteMouseMove"
+    @mouseup="onSubstituteMouseUp"
+  >
     <div
       v-for="(section, index) in dataSource"
       :key="section.id"
@@ -19,10 +22,14 @@
         所有在该节点上的操作都会实时映射到真实组件上
       -->
       <div
-        :class="$style.substitute"
         v-for="(component) in section.components"
+        :class="{
+          [$style.substitute]: true,
+          [$style['substitute-active']]: componentHighlightId === component.id,
+        }"
         :key="component.id"
         :style="component.styles"
+        @mousedown="onSubstituteMouseDown($event, component)"
         @mouseenter="onSubstituteMouseEnter($event, component)"
         @mouseleave="onSubstituteMouseLeave"
       ></div>
@@ -51,17 +58,27 @@
 <script lang="ts">
 import { mixins } from "vue-class-component";
 import { Component } from "vue-property-decorator";
-import { Action } from "vuex-class";
+import { Action, State } from "vuex-class";
 import VueDragResize from "vue-drag-resize";
 
 import FlowMixin from "@/mixins/flow";
 import { ISection, IComponent, CSSProperties } from "@/index.d";
-
 import { ActionSelectSection } from "@/store/flow/actions/";
+import { GlobalState } from "@/store/global/state";
 
-import { convertInlineStyle, removeInlineStyleUnit } from "@/util/unit";
+import { removeInlineStyleUnit, addInlineStyleUnit } from "@/util/unit";
 
 type SelectSection = (payload: ActionSelectSection) => void;
+type SelectComponent = (component: IComponent) => void;
+type MoveOnComponent = (id: string) => void;
+type MoveOutComponent = () => void;
+type MoveComponent = (styles: any) => void;
+
+let startX: number = 0;
+let startY: number = 0;
+let x: number = 0;
+let y: number = 0;
+let isDrag: boolean = false;
 
 @Component({
   components: {
@@ -69,7 +86,12 @@ type SelectSection = (payload: ActionSelectSection) => void;
   },
 })
 export default class Flow extends mixins(FlowMixin) {
+  @State("global") private global!: GlobalState;
   @Action("flow/selectSection") private selectSection!: SelectSection;
+  @Action("flow/selectComponent") private selectComponent!: SelectComponent;
+  @Action("flow/moveComponent") private moveComponent!: MoveComponent;
+  @Action("global/moveOnComponent") private moveOnComponent!: MoveOnComponent;
+  @Action("global/moveOutComponent") private moveOutComponent!: MoveOutComponent;
 
   private handleClick(section: ISection, index: number) {
     this.selectSection({ section, index });
@@ -87,12 +109,43 @@ export default class Flow extends mixins(FlowMixin) {
     return { height: styles.height };
   }
 
-  private onSubstituteMouseEnter(e: VSE.IEvent, component: IComponent) {
-    console.log(1);
+  private onSubstituteMouseEnter(e: MouseEvent, component: IComponent) {
+    this.moveOnComponent(component.id);
   }
 
   private onSubstituteMouseLeave() {
-    console.log(2);
+    this.moveOutComponent();
+  }
+
+  private onSubstituteMouseDown(e: MouseEvent, component: IComponent) {
+    const { pageX, pageY } = e;
+    startX = pageX;
+    startY = pageY;
+    isDrag = true;
+    x = removeInlineStyleUnit(component.styles.left as string);
+    y = removeInlineStyleUnit(component.styles.top as string);
+
+    this.selectComponent(component);
+  }
+
+  private onSubstituteMouseUp() {
+    isDrag = false;
+    startX = 0;
+    startY = 0;
+    x = 0;
+    y = 0;
+  }
+
+  private onSubstituteMouseMove(e: MouseEvent) {
+    if (isDrag) {
+      const { pageX, pageY } = e;
+      const deltaX = pageX - startX;
+      const deltaY = pageY - startY;
+      this.moveComponent({
+        left: addInlineStyleUnit(x + deltaX, "px"),
+        top: addInlineStyleUnit(y + deltaY, "px"),
+      });
+    }
   }
 
   get w() {
@@ -110,6 +163,10 @@ export default class Flow extends mixins(FlowMixin) {
   get y() {
     return removeInlineStyleUnit(this.currentComponent!.styles!.top!.toString());
   }
+
+  get componentHighlightId() {
+    return this.global.componentHighlightId;
+  }
 }
 </script>
 
@@ -126,6 +183,23 @@ export default class Flow extends mixins(FlowMixin) {
       right: 0;
       bottom: 0;
       border: 2px solid #81b0ff;
+    }
+  }
+}
+
+.substitute {
+  position: absolute;
+  opacity: 0.5;
+
+  &-active {
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border: 2px dashed #000;
     }
   }
 }

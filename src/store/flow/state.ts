@@ -1,5 +1,3 @@
-import CSS from "csstype";
-
 import { ISection, IComponent } from "@/index.d";
 
 export interface FlowState {
