@@ -16,6 +16,7 @@
     "ordered-imports": false,
     "quotemark": [true, "double"],
     "no-console": false,
-    "no-namespace": [true, "allow-declarations"]
+    "no-namespace": [true, "allow-declarations"],
+    "no-empty-interface": false
   }
 }

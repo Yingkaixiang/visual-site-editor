@@ -23,8 +23,9 @@ export default {
   doubleClick(ctx: { commit: Commit, state: FlowState }, payload: ActionDoubleClick) {
     ctx.commit(Types.INSERT_TO_BOTTOM, payload);
     ctx.commit(Types.CHANGE_SECTION, payload.section);
-    ctx.commit(Types.CHANGE_OPERATOR_STYLE);
     ctx.commit(Types.CHANGE_COMPONENT, payload.component);
+    ctx.commit(Types.AUTO_ADJUST_SECTION_HEIGHT);
+    ctx.commit(Types.CHANGE_OPERATOR_STYLE);
   },
 
   selectSection(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectSection) {
@@ -86,5 +87,9 @@ export default {
   moveComponent(ctx: { commit: Commit, state: FlowState }, styles: any) {
     ctx.commit(Types.CHANGE_COMPONENT_LEFT, styles.left);
     ctx.commit(Types.CHANGE_COMPONENT_TOP, styles.top);
+  },
+
+  resizeComponent(ctx: { commit: Commit, state: FlowState }, rect: VSE.IRect) {
+    ctx.commit(Types.CHANGE_COMPONENT_STYLE, rect);
   },
 };

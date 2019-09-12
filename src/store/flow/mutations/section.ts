@@ -1,4 +1,5 @@
 import { Types } from "../mutation-types";
+import { removeInlineStyleUnit, addInlineStyleUnit } from "@/util/unit";
 
 import { FlowState } from "../state";
 import { ISection, IComponent, CSSProperties } from "@/index.d";
@@ -32,8 +33,31 @@ export default {
     state.backgroundHighlightIndex = payload;
   },
 
-  [Types.AUTO_ADJUST_SECTION_HEIGHT](state: FlowState, payload: number) {
-    console.log("自动调整高度");
+  [Types.AUTO_ADJUST_SECTION_HEIGHT](state: FlowState) {
+    const { section } = state;
+    if (section) {
+      const max = section.components.reduce((prev: number, current: IComponent) => {
+        const top = removeInlineStyleUnit(current.styles.top!);
+        const height = removeInlineStyleUnit(current.styles.height!);
+        const sum = top + height;
+
+        if (sum > prev) {
+          return sum;
+        }
+
+        return prev;
+      }, 0);
+      console.log(max);
+      // components.forEach((component: IComponent) => {
+      //   const top = removeInlineStyleUnit(component.styles!.top!);
+      //   const height = removeInlineStyleUnit(component.styles!.height!);
+      //   const sectionHeight = top + height;
+      //   if (sectionHeight > max) {
+      //     max = sectionHeight;
+      //   }
+      // });
+      section.styles.height = addInlineStyleUnit(max, "px");
+    }
   },
 
   // 在当前区域的上方添加一个新区域

@@ -7,7 +7,7 @@ export default {
   aspectRatio: false,
   styles: {
     width: "375px",
-    height: "190px",
+    height: "250px",
     top: "0px",
     left: "0px",
   },

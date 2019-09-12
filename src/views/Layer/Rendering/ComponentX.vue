@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <RichText v-if="type === 'text'" />
-    <Picture v-if="type === 'picture'" />
-  </div>
+  <RichText v-if="type === 'text'" />
+  <Picture v-else-if="type === 'picture'" />
 </template>
 
 <script lang="ts">

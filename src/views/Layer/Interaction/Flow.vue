@@ -50,6 +50,7 @@
         :y="y"
         :z="999"
         :sticks="currentComponent.sticks"
+        @resizing="onResizing"
       />
     </div>
   </div>
@@ -73,6 +74,7 @@ type SelectComponent = (component: IComponent) => void;
 type MoveOnComponent = (id: string) => void;
 type MoveOutComponent = () => void;
 type MoveComponent = (styles: any) => void;
+type ResizeComponent = (rect: VSE.IRect) => void;
 
 let startX: number = 0;
 let startY: number = 0;
@@ -90,6 +92,7 @@ export default class Flow extends mixins(FlowMixin) {
   @Action("flow/selectSection") private selectSection!: SelectSection;
   @Action("flow/selectComponent") private selectComponent!: SelectComponent;
   @Action("flow/moveComponent") private moveComponent!: MoveComponent;
+  @Action("flow/resizeComponent") private resizeComponent!: ResizeComponent;
   @Action("global/moveOnComponent") private moveOnComponent!: MoveOnComponent;
   @Action("global/moveOutComponent") private moveOutComponent!: MoveOutComponent;
 
@@ -122,8 +125,8 @@ export default class Flow extends mixins(FlowMixin) {
     startX = pageX;
     startY = pageY;
     isDrag = true;
-    x = removeInlineStyleUnit(component.styles.left as string);
-    y = removeInlineStyleUnit(component.styles.top as string);
+    x = removeInlineStyleUnit(component.styles.left!);
+    y = removeInlineStyleUnit(component.styles.top!);
 
     this.selectComponent(component);
   }
@@ -146,6 +149,10 @@ export default class Flow extends mixins(FlowMixin) {
         top: addInlineStyleUnit(y + deltaY, "px"),
       });
     }
+  }
+
+  private onResizing(rect: VSE.IRect) {
+    this.resizeComponent(rect);
   }
 
   get w() {

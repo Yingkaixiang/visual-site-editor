@@ -1,7 +1,7 @@
 <template>
   <img
     :class="$style.img"
-    src="https://cdn.pixabay.com/photo/2019/08/03/12/22/hot-air-balloons-4381674__340.jpg"
+    src="https://cdn.pixabay.com/photo/2019/07/29/16/13/bald-eagle-4370916__340.jpg"
     alt="图片"
   />
 </template>

@@ -45,4 +45,11 @@ declare namespace VSE {
     id: string;
     styles: CSS;
   }
+
+  interface IRect {
+    width: number;
+    height: number;
+    left: number;
+    top: number;
+  }
 }
