@@ -11,7 +11,7 @@ export default {
     top: "0px",
     left: "0px",
   },
-  type: "text",
+  type: "richText",
   isDraggable: true,
   isResizable: true,
   version: "v1",

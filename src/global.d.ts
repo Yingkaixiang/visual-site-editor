@@ -1,5 +1,5 @@
 declare namespace VSE {
-  type IComponentType = "text" | "picture";
+  type IComponentType = "richText" | "picture";
   type IComponentSticks = string[];
   type ISectionPositionType = "static" | "fixed";
   type ISectionPositionLocation = "top" | "bottom" | "anywhere" | "";

@@ -39,7 +39,10 @@
         </div>
       </Tooltip>
 
-      <div :class="$style.btn">
+      <div
+        :class="$style.btn"
+        @click="onConfigurationClick"
+      >
         <i class="el-icon-setting" />
       </div>
 
@@ -91,25 +94,31 @@ import { Tooltip } from "element-ui";
 
 import { FlowState } from "@/store/flow/state";
 import CSS from "csstype";
+import { ActionSelectSection } from "@/store/flow/actions/";
+import { ISection } from "@/index.d";
 
 import { createSection } from "@/util/data";
 import HandlerMixin from "@/mixins/handler";
+import GlobalMixin from "@/mixins/global";
+
+type SelectSection = (payload: ActionSelectSection) => void;
 
 @Component({
   components: {
     Tooltip,
   },
 })
-export default class Operator extends mixins(HandlerMixin) {
+export default class Operator extends mixins(HandlerMixin, GlobalMixin) {
   @State("flow") public flow!: FlowState;
   @Action("flow/doubleClickHandler") private doubleClickHandler!: () => void;
   @Action("flow/addNewSectionInFrontCurrent") private addNewSectionInFrontCurrent!:
-    (section: VSE.ISection<CSS.Properties>) => void;
+    (section: ISection) => void;
   @Action("flow/addNewSectionAtBackCurrent") private addNewSectionAtBackCurrent!:
-    (section: VSE.ISection<CSS.Properties>) => void;
+    (section: ISection) => void;
   @Action("flow/moveSectionForward") private moveSectionForward!: () => void;
   @Action("flow/moveSectionBackward") private moveSectionBackward!: () => void;
   @Action("flow/removeSection") private removeSection!: () => void;
+  @Action("flow/selectSection") private selectSection!: SelectSection;
 
   get height() {
     return this.flow.operatorStyle!.height;
@@ -131,6 +140,10 @@ export default class Operator extends mixins(HandlerMixin) {
 
   get sectionIndex() {
     return this.flow.index;
+  }
+
+  get section() {
+    return this.flow.section;
   }
 
   get length() {
@@ -160,6 +173,12 @@ export default class Operator extends mixins(HandlerMixin) {
 
   private onRemoveBtnClick() {
     this.removeSection();
+  }
+
+  private onConfigurationClick() {
+    if (this.section && this.sectionIndex > -1) {
+      this.selectSection({ section: this.section, index: this.sectionIndex });
+    }
   }
 }
 </script>

@@ -10,11 +10,15 @@ export default {
   },
 
   [Types.CHANGE_COMPONENT_LEFT](state: FlowState, left: string) {
-    state.component!.styles.left = left;
+    if (state.component) {
+      state.component.styles.left = left;
+    }
   },
 
   [Types.CHANGE_COMPONENT_TOP](state: FlowState, top: string) {
-    state.component!.styles.top = top;
+    if (state.component) {
+      state.component.styles.top = top;
+    }
   },
 
   [Types.CHANGE_COMPONENT_STYLE](state: FlowState, rect: VSE.IRect) {

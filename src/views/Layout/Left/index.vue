@@ -18,6 +18,7 @@ import { cloneDeep } from "lodash";
 import { createSection } from "@/util/data";
 import { defaultComponentList } from "@/components/";
 import ScrollMixin from "@/mixins/scroll";
+import GlobalMixin from "@/mixins/global";
 
 import { ActionDoubleClick } from "@/store/flow/actions/";
 import { IDefaultComponentList } from "@/components/";
@@ -33,7 +34,7 @@ interface C extends IComponentDefault {
     Button,
   },
 })
-export default class Left extends mixins(ScrollMixin) {
+export default class Left extends mixins(ScrollMixin, GlobalMixin) {
   @Action("flow/doubleClick") private doubleClick!: DoubleClick;
 
   private defaultComponentList: IDefaultComponentList = defaultComponentList;

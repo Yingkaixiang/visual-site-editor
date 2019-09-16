@@ -4,18 +4,16 @@ import CSS from "csstype";
 import { FlowState } from "../state";
 
 import { Types } from "../mutation-types";
-import { IComponent } from "@/index.d";
-
-type Section = VSE.ISection<CSS.Properties>;
-type Component = VSE.IComponent<CSS.Properties>;
+import { Types as GlobalTypes } from "@/store/global/mutation-types";
+import { IComponent, ISection } from "@/index.d";
 
 export interface ActionDoubleClick {
-  section: Section;
-  component: Component;
+  section: ISection;
+  component: IComponent;
 }
 
 export interface ActionSelectSection {
-  section: Section;
+  section: ISection;
   index: number;
 }
 
@@ -26,12 +24,17 @@ export default {
     ctx.commit(Types.CHANGE_COMPONENT, payload.component);
     ctx.commit(Types.AUTO_ADJUST_SECTION_HEIGHT);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
+
+    ctx.commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, payload.component.type, { root: true });
   },
 
   selectSection(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectSection) {
     ctx.commit(Types.CHANGE_INDEX, payload.index);
     ctx.commit(Types.CHANGE_SECTION, payload.section);
+    ctx.commit(Types.CHANGE_COMPONENT, null);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
+
+    ctx.commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, "section", { root: true });
   },
 
   moveOnSection(ctx: { commit: Commit, state: FlowState }, payload: number) {
@@ -51,12 +54,12 @@ export default {
     ctx.commit(Types.AUTO_ADJUST_SECTION_HEIGHT);
   },
 
-  addNewSectionInFrontCurrent(ctx: { commit: Commit, state: FlowState }, payload: Section) {
+  addNewSectionInFrontCurrent(ctx: { commit: Commit, state: FlowState }, payload: ISection) {
     ctx.commit(Types.ADD_NEW_SECTION_IN_FRONT_CURRENT, payload);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
   },
 
-  addNewSectionAtBackCurrent(ctx: { commit: Commit, state: FlowState }, payload: Section) {
+  addNewSectionAtBackCurrent(ctx: { commit: Commit, state: FlowState }, payload: ISection) {
     ctx.commit(Types.ADD_NEW_SECTION_AT_BACK_CURRENT, payload);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
   },
@@ -82,6 +85,8 @@ export default {
 
   selectComponent(ctx: { commit: Commit, state: FlowState }, component: IComponent) {
     ctx.commit(Types.CHANGE_COMPONENT, component);
+
+    ctx.commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, component.type, { root: true });
   },
 
   moveComponent(ctx: { commit: Commit, state: FlowState }, styles: any) {

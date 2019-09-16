@@ -1,5 +1,5 @@
 <template>
-  <RichText v-if="type === 'text'" />
+  <RichText v-if="type === 'richText'" />
   <Picture v-else-if="type === 'picture'" />
 </template>
 

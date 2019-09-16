@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import Flow from "./Flow.vue";
+import Flow from "./Flow/index.vue";
 
 @Component({
   components: {

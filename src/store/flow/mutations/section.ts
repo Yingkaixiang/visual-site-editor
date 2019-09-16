@@ -47,15 +47,7 @@ export default {
 
         return prev;
       }, 0);
-      console.log(max);
-      // components.forEach((component: IComponent) => {
-      //   const top = removeInlineStyleUnit(component.styles!.top!);
-      //   const height = removeInlineStyleUnit(component.styles!.height!);
-      //   const sectionHeight = top + height;
-      //   if (sectionHeight > max) {
-      //     max = sectionHeight;
-      //   }
-      // });
+
       section.styles.height = addInlineStyleUnit(max, "px");
     }
   },
