@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>组件可以双击添加或拖动添加</p>
     <div
       v-for="component in defaultComponentList"
       draggable="true"
