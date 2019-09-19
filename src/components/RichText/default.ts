@@ -1,4 +1,4 @@
-import { IComponentDefault } from "@/index.d";
+import { IComponent } from "@/index.d";
 
 export default {
   audit: {},
@@ -15,4 +15,4 @@ export default {
   isDraggable: true,
   isResizable: true,
   version: "v1",
-} as IComponentDefault;
+} as IComponent;

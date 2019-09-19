@@ -1,9 +1,9 @@
 import RichText from "./RichText/default";
 import Picture from "./Picture/default";
 
-import { IComponentDefault } from "@/index.d";
+import { IComponent } from "@/index.d";
 
-export type IDefaultComponentList = IComponentDefault[];
+export type IDefaultComponentList = IComponent[];
 
 export const defaultComponentList: IDefaultComponentList = [
   RichText,

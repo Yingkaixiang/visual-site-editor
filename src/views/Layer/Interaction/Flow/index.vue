@@ -158,7 +158,9 @@ export default class Flow extends mixins(FlowMixin, GlobalMixin) {
   }
 
   private onSubstituteMouseEnter(e: MouseEvent, component: IComponent) {
-    this.moveOnComponent(component.id);
+    if (component.id) {
+      this.moveOnComponent(component.id);
+    }
   }
 
   private onSubstituteMouseLeave() {
