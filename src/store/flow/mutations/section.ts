@@ -9,6 +9,11 @@ interface MutationInsertToBottom {
   component: IComponent;
 }
 
+interface MutationAddNewComponentToExistSection {
+  component: IComponent;
+  index: number;
+}
+
 export default {
   // 插入底部
   [Types.INSERT_TO_BOTTOM](state: FlowState, payload: MutationInsertToBottom) {
@@ -117,12 +122,19 @@ export default {
     state.section!.styles = styles;
   },
 
-  // 在新区域中插入一个新组建
+  // 在新区域中插入一个新组件
   [Types.ADD_NEW_COMPONENT_TO_NEW_SECTION](state: FlowState, section: ISection) {
     const index = state.dragHighlightIndex / 2;
-    console.log(index);
     state.dataSource.splice(index, 0, section);
     state.section = section;
+    state.index = index;
+  },
+
+  // 在已存在区域里插入一个新组件
+  [Types.ADD_NEW_COMPONENT_TO_EXIST_SECTION](state: FlowState, payload: MutationAddNewComponentToExistSection) {
+    const { index, component } = payload;
+    state.dataSource[index].components.push(component);
+    state.section = state.dataSource[index];
     state.index = index;
   },
 };

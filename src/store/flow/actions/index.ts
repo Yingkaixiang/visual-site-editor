@@ -4,7 +4,6 @@ import CSS from "csstype";
 import { FlowState } from "../state";
 
 import { Types } from "../mutation-types";
-import { Types as GlobalTypes } from "@/store/global/mutation-types";
 import { IComponent, ISection } from "@/index.d";
 
 export interface ActionDoubleClick {
@@ -29,8 +28,6 @@ export default {
     ctx.commit(Types.CHANGE_COMPONENT, payload.component);
     ctx.commit(Types.AUTO_ADJUST_SECTION_HEIGHT);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
-
-    ctx.commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, payload.component.type, { root: true });
   },
 
   selectSection(ctx: { commit: Commit, state: FlowState }, payload: ActionSelectSection) {
@@ -38,8 +35,6 @@ export default {
     ctx.commit(Types.CHANGE_SECTION, payload.section);
     ctx.commit(Types.CHANGE_COMPONENT, null);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
-
-    ctx.commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, "section", { root: true });
   },
 
   moveOnSection(ctx: { commit: Commit, state: FlowState }, payload: number) {
@@ -92,8 +87,6 @@ export default {
 
   selectComponent(ctx: { commit: Commit, state: FlowState }, component: IComponent) {
     ctx.commit(Types.CHANGE_COMPONENT, component);
-
-    ctx.commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, component.type, { root: true });
   },
 
   moveComponent(ctx: { commit: Commit, state: FlowState }, styles: any) {
@@ -132,14 +125,26 @@ export default {
   dragComponentDrop(ctx: { commit: Commit, state: FlowState }, payload: ActionDragComponentDrop) {
     const { oldSection, newSection } = payload;
     const { index, dragHighlightIndex } = ctx.state;
+    const component = newSection.components[0];
 
     ctx.commit(Types.REMOVE_TEMP_SECTION);
     if (oldSection.type === "flow-temp") {
       ctx.commit(Types.ADD_NEW_COMPONENT_TO_NEW_SECTION, newSection);
     } else if (oldSection.type === "flow") {
-      console.log("已存在");
+      let i;
+      if (index === dragHighlightIndex) {
+        i = index === 0 ? 0 : (index - 1) / 2;
+      } else {
+        i = (dragHighlightIndex - 1) / 2;
+      }
+      ctx.commit(Types.ADD_NEW_COMPONENT_TO_EXIST_SECTION, {
+        component,
+        index: i,
+      });
     }
     ctx.commit(Types.CHANGE_IS_DRAG_DROP, true);
+    ctx.commit(Types.CHANGE_COMPONENT, component);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
+    ctx.commit(Types.AUTO_ADJUST_SECTION_HEIGHT);
   },
 };

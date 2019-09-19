@@ -1,12 +1,15 @@
 import { Types } from "../mutation-types";
-
 import { FlowState } from "../state";
 import { IComponent } from "@/index.d";
+import { Types as GlobalTypes } from "@/store/global/mutation-types";
+
 import { addInlineStyleUnit } from "@/util/unit";
 
 export default {
-  [Types.CHANGE_COMPONENT](state: FlowState, payload: IComponent) {
-    state.component = payload;
+  [Types.CHANGE_COMPONENT](state: FlowState, component: IComponent) {
+    state.component = component;
+    const type = component ? component.type : "section";
+    (this as any).commit(`global/${GlobalTypes.CHANGE_CONFIGURATION_TYPE}`, type);
   },
 
   [Types.CHANGE_COMPONENT_LEFT](state: FlowState, left: string) {
