@@ -17,6 +17,14 @@ Sentry.init({
     attachProps: true,
     logErrors: true,
   })],
+  environment: "development",
+  release: "v1.0.0",
+  beforeSend(event, hint) {
+    if (event.exception) {
+      Sentry.showReportDialog({ eventId: event.event_id });
+    }
+    return event;
+  },
 });
 
 Vue.config.productionTip = false;
