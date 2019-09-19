@@ -17,6 +17,11 @@ export interface ActionSelectSection {
   index: number;
 }
 
+export interface ActionDragComponentDrop {
+  oldSection: ISection;
+  newSection: ISection;
+}
+
 export default {
   doubleClick(ctx: { commit: Commit, state: FlowState }, payload: ActionDoubleClick) {
     ctx.commit(Types.INSERT_TO_BOTTOM, payload);
@@ -98,5 +103,43 @@ export default {
 
   resizeComponent(ctx: { commit: Commit, state: FlowState }, rect: VSE.IRect) {
     ctx.commit(Types.CHANGE_COMPONENT_STYLE, rect);
+  },
+
+  dragComponentStart(ctx: { commit: Commit, state: FlowState }) {
+    ctx.commit(Types.CHANGE_IS_DRAG_START, true);
+    ctx.commit(Types.ADD_TEMP_SECTION);
+    ctx.commit(Types.CHANGE_INDEX, 2 * ctx.state.index + 1);
+    ctx.commit(Types.CHANGE_OPERATOR_STYLE);
+  },
+
+  dragComponentEnd(ctx: { commit: Commit, state: FlowState }) {
+    const { index, isDragDrop } = ctx.state;
+    const i = index === 0 ? 0 : (index - 1) / 2;
+
+    ctx.commit(Types.CHANGE_IS_DRAG_START, false);
+    ctx.commit(Types.REMOVE_TEMP_SECTION);
+    if (!isDragDrop) {
+      ctx.commit(Types.CHANGE_INDEX, i);
+    }
+    ctx.commit(Types.CHANGE_DRAG_HIGHLIGHT_INDEX, -1);
+    ctx.commit(Types.CHANGE_OPERATOR_STYLE);
+  },
+
+  dragComponentEnter(ctx: { commit: Commit, state: FlowState }, index: number) {
+    ctx.commit(Types.CHANGE_DRAG_HIGHLIGHT_INDEX, index);
+  },
+
+  dragComponentDrop(ctx: { commit: Commit, state: FlowState }, payload: ActionDragComponentDrop) {
+    const { oldSection, newSection } = payload;
+    const { index, dragHighlightIndex } = ctx.state;
+
+    ctx.commit(Types.REMOVE_TEMP_SECTION);
+    if (oldSection.type === "flow-temp") {
+      ctx.commit(Types.ADD_NEW_COMPONENT_TO_NEW_SECTION, newSection);
+    } else if (oldSection.type === "flow") {
+      console.log("已存在");
+    }
+    ctx.commit(Types.CHANGE_IS_DRAG_DROP, true);
+    ctx.commit(Types.CHANGE_OPERATOR_STYLE);
   },
 };

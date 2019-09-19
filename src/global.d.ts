@@ -22,7 +22,7 @@ declare namespace VSE {
     // 是否可以等比例缩放
     // 如：图片组件
     aspectRatio: boolean;
-    readonly id: string;
+    id?: string;
     isDraggable: boolean;
     isResizable: boolean;
     item: Array<IComponentItem<CSS>>;

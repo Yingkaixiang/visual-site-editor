@@ -10,6 +10,7 @@ interface MutationInsertToBottom {
 }
 
 export default {
+  // 插入底部
   [Types.INSERT_TO_BOTTOM](state: FlowState, payload: MutationInsertToBottom) {
     const { section, component } = payload;
     section.components.push(component);
@@ -17,22 +18,27 @@ export default {
     state.index = index - 1;
   },
 
+  // 修改当前区域索引
   [Types.CHANGE_INDEX](state: FlowState, payload: number) {
     state.index = payload;
   },
 
+  // 修改当前区域
   [Types.CHANGE_SECTION](state: FlowState, payload: ISection) {
     state.section = payload;
   },
 
+  // 修改当前区域高度
   [Types.CHANGE_SECTION_HEIGHT](state: FlowState, payload: string) {
     state.section!.styles.height = payload;
   },
 
+  // 修改背景高亮索引
   [Types.CHANGE_BACKGROUND_HIGHLIGHT_INDEX](state: FlowState, payload: number) {
     state.backgroundHighlightIndex = payload;
   },
 
+  // 自动调整区域高度
   [Types.AUTO_ADJUST_SECTION_HEIGHT](state: FlowState) {
     const { section } = state;
     if (section) {
@@ -109,5 +115,14 @@ export default {
   // 修改区域样式
   [Types.CHANGE_SECTION_STYLE](state: FlowState, styles: CSSProperties) {
     state.section!.styles = styles;
+  },
+
+  // 在新区域中插入一个新组建
+  [Types.ADD_NEW_COMPONENT_TO_NEW_SECTION](state: FlowState, section: ISection) {
+    const index = state.dragHighlightIndex / 2;
+    console.log(index);
+    state.dataSource.splice(index, 0, section);
+    state.section = section;
+    state.index = index;
   },
 };

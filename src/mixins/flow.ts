@@ -27,4 +27,12 @@ export default class FlowMixin extends Vue {
   get currentComponent() {
     return this.flow.component;
   }
+
+  get isDragStart() {
+    return this.flow.isDragStart;
+  }
+
+  get dragHighlightIndex() {
+    return this.flow.dragHighlightIndex;
+  }
 }

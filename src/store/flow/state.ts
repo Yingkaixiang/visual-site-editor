@@ -13,6 +13,12 @@ export interface FlowState {
   operatorStyle: Operator | null;
   // 当前激活的组件
   component: IComponent | null;
+  // 组件是否被拖动
+  isDragStart: boolean;
+  // 组建是否被放入某个区域
+  isDragDrop: boolean;
+  // 拖入区域高亮索引
+  dragHighlightIndex: number;
 }
 
 export interface Operator {
@@ -29,6 +35,9 @@ const state: FlowState = {
   backgroundHighlightIndex: -1,
   operatorStyle: null,
   component: null,
+  isDragStart: false,
+  isDragDrop: false,
+  dragHighlightIndex: -1,
 };
 
 export default state;

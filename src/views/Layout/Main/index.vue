@@ -7,6 +7,7 @@
         <Rendering />
         <Interaction />
         <Operator />
+        <Drop />
       </div>
     </div>
     <div :class="$style['bottom-blank']"></div>
@@ -20,6 +21,7 @@ import Background from "./Background.vue";
 import Rendering from "@/views/Layer/Rendering/index.vue";
 import Interaction from "@/views/Layer/Interaction/index.vue";
 import Operator from "@/views/Layer/Operator/index.vue";
+import Drop from "@/views/Layer/Drop/index.vue";
 
 @Component({
   components: {
@@ -27,6 +29,7 @@ import Operator from "@/views/Layer/Operator/index.vue";
     Rendering,
     Interaction,
     Operator,
+    Drop,
   },
 })
 export default class Main extends Vue {}

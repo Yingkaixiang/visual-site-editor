@@ -7,6 +7,8 @@ export default {
   [Types.CHANGE_OPERATOR_STYLE](state: FlowState) {
     const { index, dataSource, section } = state;
 
+    if (!section) { return; }
+
     if (dataSource.length > 0) {
       let top = 0;
       for (let i = 0; i < index; i += 1) {
