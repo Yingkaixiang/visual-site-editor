@@ -56,11 +56,13 @@ export default {
 
   addNewSectionInFrontCurrent(ctx: { commit: Commit, state: FlowState }, payload: ISection) {
     ctx.commit(Types.ADD_NEW_SECTION_IN_FRONT_CURRENT, payload);
+    ctx.commit(Types.CHANGE_COMPONENT, null);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
   },
 
   addNewSectionAtBackCurrent(ctx: { commit: Commit, state: FlowState }, payload: ISection) {
     ctx.commit(Types.ADD_NEW_SECTION_AT_BACK_CURRENT, payload);
+    ctx.commit(Types.CHANGE_COMPONENT, null);
     ctx.commit(Types.CHANGE_OPERATOR_STYLE);
   },
 
