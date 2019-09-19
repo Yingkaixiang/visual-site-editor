@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/visual-site-editor/dist/precache-manifest.fbbe844ead8679a3452735b56d40e2b3.js"
+  "/visual-site-editor/dist/precache-manifest.3dd37f5008263ca43f0c1fe943d42b62.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-visual-editor"});
