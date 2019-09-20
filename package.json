@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -32,7 +31,6 @@
     "@types/lodash": "^4.14.138",
     "@types/shortid": "^0.0.29",
     "@vue/cli-plugin-babel": "^3.10.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.10.0",
     "@vue/cli-plugin-pwa": "^3.10.0",
     "@vue/cli-plugin-typescript": "^3.10.0",
     "@vue/cli-plugin-unit-jest": "^3.10.0",
